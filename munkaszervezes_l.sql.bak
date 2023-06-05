@@ -1,0 +1,28 @@
+#kulcsok
+Megoldás: 
+dolgozo.id = leosztas.d_id
+feladat.id = leosztas.f_id
+muhely.id = leosztas.m_id
+nap.id = leosztas.n_id
+
+#feladatok hétfőn a Fazola Henrik műhelyben. Névnek kell megjelennie, csak egyszer!
+SELECT DISTINCT f.nev
+FROM leosztas l JOIN feladat f ON l.f_id=f.id
+	JOIN nap n ON n.id=l.n_id
+	JOIN muhely m ON m.id=l.m_id
+WHERE n.nev='hétfő' AND m.nev LIKE 'Faz%';
+
+#órának és az akkorra ütemezett feladatok nevének kell megjelennie!
+SELECT l.ora, f.nev 
+FROM leosztas l JOIN feladat f ON l.f_id=f.id
+	JOIN nap n ON n.id=l.n_id
+	JOIN muhely m ON m.id=l.m_id
+WHERE n.nev='hétfő' AND m.nev LIKE 'Faz%'
+
+UNION
+
+SELECT l.ora, f.nev
+FROM leosztas l JOIN feladat f ON l.f_id=f.id
+	JOIN nap n ON n.id=l.n_id
+	JOIN muhely m ON m.id=l.m_id
+WHERE n.nev='kedd' AND m.nev LIKE 'Faz%';
